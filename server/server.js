@@ -27,26 +27,10 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Retrieve data from the server
-app.get('/', (req, res) => {
-    res.json('Hello!!')
-});
 
-// Send data from frontend to backend
-app.post('/', (req, res) => {
-    let user = new User();
-    user.name = req.body.name;
-    user.email = req.body.email;
-    user.password = req.body.password;
-
-    user.save(err => {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json('Successfully saved');
-        }
-    })
-});
+// Require APIs
+const productRoutes = require('./routes/product');
+app.use('/api', productRoutes);
 
 app.listen(PORT, (err) => {
     if (err) {

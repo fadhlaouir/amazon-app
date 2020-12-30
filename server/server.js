@@ -2,12 +2,15 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 PORT = 5000;
 
 const app = express();
 
-mongoose.connect('mongodb+srv://root:root@cluster0.etney.mongodb.net/<dbname>?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true },
+mongoose.connect(process.env.DATABASE, { useNewUrlParser: true, useUnifiedTopology: true },
     err => {
         if (err) {
             console.log(err);

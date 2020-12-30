@@ -6,12 +6,10 @@ PORT = 5000;
 
 const app = express();
 
-
 // Middlewares
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
 
 // Retrieve data from the server
 app.get('/', (req, res) => {

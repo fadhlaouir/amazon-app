@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
-const User = require('./models/user')
+const User = require('./models/user');
+const Product = require('./models/product');
 
 dotenv.config();
 

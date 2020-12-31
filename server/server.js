@@ -4,9 +4,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
-const User = require('./models/user');
-const Product = require('./models/product');
-
 dotenv.config();
 
 PORT = 5000;
@@ -30,7 +27,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Require APIs
 const productRoutes = require('./routes/product');
+const CategorytRoutes = require('./routes/category');
+
 app.use('/api', productRoutes);
+app.use('/api', CategorytRoutes);
+
+
+
+
 
 app.listen(PORT, (err) => {
     if (err) {

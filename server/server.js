@@ -28,10 +28,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Require APIs
 const productRoutes = require('./routes/product');
 const CategorytRoutes = require('./routes/category');
+const OwnertRoutes = require('./routes/owner');
 
 app.use('/api', productRoutes);
 app.use('/api', CategorytRoutes);
-
+app.use('/api', OwnertRoutes);
 
 
 

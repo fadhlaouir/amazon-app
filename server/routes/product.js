@@ -18,15 +18,15 @@ router.post('/products', upload.single("photo"), async(req, res) => {
         res.json({
             status: true,
             message: "Successfully saved"
-        })
+        });
 
     } catch (error) {
         res.status(500).json({
             success: false,
             message: error.message
-        })
+        });
     }
-})
+});
 
 
 // GET request - get all products
@@ -36,17 +36,31 @@ router.get("/products", async(req, res) => {
         res.json({
             success: true,
             products: products
-        })
+        });
     } catch (error) {
         res.status(500).json({
             success: false,
             message: error.message
-        })
+        });
     }
-})
+});
 
 
 // GET request - get a single product
+router.get("/products/:id", async(req, res) => {
+    try {
+        let product = await Product.findOne({ _id: req.params.id });
+        res.json({
+            success: true,
+            product: product
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+});
 
 
 // PUT request - Update a single product

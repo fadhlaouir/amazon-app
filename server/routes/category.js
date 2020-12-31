@@ -22,4 +22,20 @@ router.post('/categories', async(req, res) => {
     }
 });
 
+// GET request
+router.get("/categories", async(req, res) => {
+    try {
+        let categories = await Category.find();
+        res.json({
+            success: true,
+            categories: categories
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+})
+
 module.exports = router

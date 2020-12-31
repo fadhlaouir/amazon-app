@@ -64,7 +64,29 @@ router.get("/products/:id", async(req, res) => {
 
 
 // PUT request - Update a single product
-
+router.put("/products/:id", async(req, res) => {
+    try {
+        let product = await Product.findOneAndUpdate({ _id: req.params.id }, {
+            $set: {
+                title: req.body.title,
+                price: req.body.price,
+                category: req.body.categoryID,
+                photo: req.file.location,
+                description: req.body.description,
+                owner: req.body.ownerID
+            }
+        }, { upsert: true });
+        res.json({
+            success: true,
+            updatedProduct: product
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+});
 
 // DELETE request - delete a single product
 

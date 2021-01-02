@@ -1,7 +1,10 @@
 <template>
   <div>
     <h1>{{ name }}</h1>
-    <h2>hello</h2>
+    <input v-model="name">
+    <button @click="onClick">
+      Click me
+    </button>
   </div>
 </template>
 
@@ -10,6 +13,11 @@ export default {
   data () {
     return {
       name: 'hello'
+    }
+  },
+  methods: {
+    onClick () {
+      alert(this.name)
     }
   }
 }

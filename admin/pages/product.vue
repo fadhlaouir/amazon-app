@@ -16,11 +16,8 @@
               <div class="a-spacing-top-medium">
                 <label>Category</label>
                 <select class="a-select-option">
-                  <option value="1">
-                    1
-                  </option>
-                  <option value="2">
-                    2
+                  <option v-for="category in categories" :key="category._id" :value="category._id">
+                    {{ category.type }}
                   </option>
                 </select>
               </div>
@@ -28,11 +25,8 @@
               <div class="a-spacing-top-medium">
                 <label>Owner</label>
                 <select class="a-select-option">
-                  <option value="1">
-                    1
-                  </option>
-                  <option value="2">
-                    2
+                  <option v-for="owner in owners" :key="owner._id" :value="owner._id">
+                    {{ owner.name }}
                   </option>
                 </select>
               </div>
@@ -83,5 +77,27 @@
 </template>
 
 <script>
-export default {}
+export default {
+  // asyncData is fetching Data before nuxt page finished loading on the browser
+  // It is good for SEO because the Data will be loaded first
+  async asyncData ({ $axios }) {
+    try {
+      const categories = await $axios.$get('http://localhost:5000/api/categories')
+      const owners = await $axios.$get('http://localhost:5000/api/owners')
+
+      // Promise run the 2 api (categories,owners) at the same time
+      const [categoryResponse, ownerResponse] = await Promise.all([
+        categories,
+        owners
+      ])
+      console.log('categoryResponse', categoryResponse)
+      return {
+        categories: categoryResponse.categories,
+        owners: ownerResponse.owners
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 </script>

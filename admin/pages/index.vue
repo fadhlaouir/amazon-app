@@ -75,7 +75,9 @@ export default {
       return {
         products: response.products
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 </script>

@@ -15,8 +15,12 @@
               <!-- category DropDown -->
               <div class="a-spacing-top-medium">
                 <label>Category</label>
-                <select class="a-select-option">
-                  <option v-for="category in categories" :key="category._id" :value="category._id">
+                <select v-model="categoryID" class="a-select-option">
+                  <option
+                    v-for="category in categories"
+                    :key="category._id"
+                    :value="category._id"
+                  >
                     {{ category.type }}
                   </option>
                 </select>
@@ -24,8 +28,12 @@
               <!-- Owner DropDown -->
               <div class="a-spacing-top-medium">
                 <label>Owner</label>
-                <select class="a-select-option">
-                  <option v-for="owner in owners" :key="owner._id" :value="owner._id">
+                <select v-model="ownerID" class="a-select-option">
+                  <option
+                    v-for="owner in owners"
+                    :key="owner._id"
+                    :value="owner._id"
+                  >
                     {{ owner.name }}
                   </option>
                 </select>
@@ -33,17 +41,26 @@
               <!-- Title input -->
               <div class="a-spacing-top-medium">
                 <label style="margin-bottom:0px;">Title</label>
-                <input type="text" class="a-input-text" style="width:100%">
+                <input v-model="title" type="text" class="a-input-text" style="width:100%">
               </div>
               <!-- Price input -->
               <div class="a-spacing-top-medium">
                 <label style="margin-bottom:0px;">Price</label>
-                <input type="number" class="a-input-text" style="width:100%">
+                <input v-model="price" type="number" class="a-input-text" style="width:100%">
+              </div>
+              <!-- Stock Quantity input -->
+              <div class="a-spacing-top-medium">
+                <label style="margin-bottom:0px;">Stock Quantity</label>
+                <input v-model="stockQuantity" type="number" class="a-input-text" style="width:100%">
               </div>
               <!-- Description textarea -->
               <div class="a-spacing-top-medium">
                 <label style="margin-bottom:0px;">Description</label>
-                <textarea placeholder="Provide details such as a product description" style="width:100%" />
+                <textarea
+                  v-model="description"
+                  placeholder="Provide details such as a product description"
+                  style="width:100%"
+                />
               </div>
               <!-- Photo file -->
               <div class="a-spacing-top-medium">
@@ -51,8 +68,8 @@
                 <div class="a-row a-spacing-top-medium">
                   <label class="choosefile-button">
                     <i class="fal fa-plus" />
-                    <input type="file">
-                    <p style="margin-top:-70px">name of the</p>
+                    <input type="file" @change="onFileSelected">
+                    <p style="margin-top:-70px">{{ fileName }}</p>
                   </label>
                 </div>
               </div>
@@ -61,7 +78,7 @@
               <div class="a-spacing-top-large">
                 <span class="a-button-register">
                   <span class="a-button-inner">
-                    <span class="a-button-text">Add product</span>
+                    <span class="a-button-text" @click="onAddProduct">Add product</span>
                   </span>
                 </span>
               </div>
@@ -82,7 +99,9 @@ export default {
   // It is good for SEO because the Data will be loaded first
   async asyncData ({ $axios }) {
     try {
-      const categories = await $axios.$get('http://localhost:5000/api/categories')
+      const categories = await $axios.$get(
+        'http://localhost:5000/api/categories'
+      )
       const owners = await $axios.$get('http://localhost:5000/api/owners')
 
       // Promise run the 2 api (categories,owners) at the same time
@@ -90,13 +109,54 @@ export default {
         categories,
         owners
       ])
-      console.log('categoryResponse', categoryResponse)
+
       return {
         categories: categoryResponse.categories,
         owners: ownerResponse.owners
       }
     } catch (error) {
       console.log(error)
+    }
+  },
+  // data vs asyncData
+  // data is a process on the client side
+  // asyncData is a process on the server side to call the api
+  data () {
+    // DOM: Document Object Model
+    // create new model so we can map the model into the right input field
+    return {
+      categoryID: null,
+      ownerID: null,
+      title: '',
+      price: 0,
+      stockQuantity: 1,
+      description: '',
+      selectedFile: null,
+      fileName: ''
+    }
+  },
+  methods: {
+    onFileSelected (event) {
+      this.selectedFile = event.target.files[0]
+      this.fileName = event.target.files[0].name
+    },
+    async onAddProduct () {
+      const data = new FormData()
+      data.append('title', this.title)
+      data.append('price', this.price)
+      data.append('description', this.description)
+      data.append('ownerID', this.ownerID)
+      data.append('categoryID', this.categoryID)
+      data.append('photo', this.photo)
+      data.append('selectedFile', this.selectedFile.name)
+      data.append('stockQuantity', this.stockQuantity)
+
+      const result = await this.$axios.$post(
+        'http://localhost:5000/api/products',
+        data
+      )
+      console.log(result)
+      this.$router.push('/')
     }
   }
 }

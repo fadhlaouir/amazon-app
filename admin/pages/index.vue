@@ -71,7 +71,7 @@ export default {
   async asyncData ({ $axios }) {
     try {
       const response = await $axios.$get('http://localhost:5000/api/products')
-      console.log('response', response)
+      console.log('response', response.products)
       return {
         products: response.products
       }

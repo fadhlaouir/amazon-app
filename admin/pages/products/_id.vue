@@ -9,7 +9,7 @@
           <div class="a-section">
             <div class="a-spacing-top-medium" />
             <h2 style="text-align:center">
-              Add a new product
+              Update {{ product.title }}
             </h2>
             <form class="a-spacing-top-medium">
               <!-- category DropDown -->
@@ -46,6 +46,7 @@
                   type="text"
                   class="a-input-text"
                   style="width:100%"
+                  :placeholder="product.title"
                 >
               </div>
               <!-- Price input -->
@@ -53,6 +54,7 @@
                 <label style="margin-bottom:0px;">Price</label>
                 <input
                   v-model="price"
+                  :placeholder="product.price"
                   type="number"
                   class="a-input-text"
                   style="width:100%"
@@ -63,6 +65,7 @@
                 <label style="margin-bottom:0px;">Stock Quantity</label>
                 <input
                   v-model="stockQuantity"
+                  :placeholder="product.stockQuantity"
                   type="number"
                   class="a-input-text"
                   style="width:100%"
@@ -73,8 +76,8 @@
                 <label style="margin-bottom:0px;">Description</label>
                 <textarea
                   v-model="description"
-                  placeholder="Provide details such as a product description"
                   style="width:100%"
+                  :placeholder="product.description"
                 />
               </div>
               <!-- Photo file -->
@@ -95,8 +98,8 @@
                   <span class="a-button-inner">
                     <span
                       class="a-button-text"
-                      @click="onAddProduct"
-                    >Add product</span>
+                      @click="onUpdateProduct"
+                    >Update product</span>
                   </span>
                 </span>
               </div>
@@ -115,22 +118,23 @@
 export default {
   // asyncData is fetching Data before nuxt page finished loading on the browser
   // It is good for SEO because the Data will be loaded first
-  async asyncData ({ $axios }) {
+  async asyncData ({ $axios, params }) {
     try {
-      const categories = await $axios.$get(
-        'http://localhost:5000/api/categories'
-      )
+      const categories = await $axios.$get('http://localhost:5000/api/categories')
       const owners = await $axios.$get('http://localhost:5000/api/owners')
+      const product = await $axios.$get(`http://localhost:5000/api/products/${params.id}`)
 
       // Promise run the 2 api (categories,owners) at the same time
-      const [categoryResponse, ownerResponse] = await Promise.all([
+      const [categoryResponse, ownerResponse, productResponse] = await Promise.all([
         categories,
-        owners
+        owners,
+        product
       ])
-
+      console.log('product', productResponse)
       return {
         categories: categoryResponse.categories,
-        owners: ownerResponse.owners
+        owners: ownerResponse.owners,
+        product: productResponse.product
       }
     } catch (error) {
       console.log(error)
@@ -146,8 +150,8 @@ export default {
       categoryID: null,
       ownerID: null,
       title: '',
-      price: 0,
-      stockQuantity: 1,
+      price: '',
+      stockQuantity: '',
       description: '',
       selectedFile: null,
       fileName: ''
@@ -159,7 +163,7 @@ export default {
       console.log(' this.selectedFile', this.selectedFile)
       this.fileName = event.target.files[0].name
     },
-    async onAddProduct () {
+    async onUpdateProduct () {
       const data = new FormData()
       data.append('title', this.title)
       data.append('price', this.price)
@@ -170,8 +174,8 @@ export default {
       data.append('selectedFile', this.selectedFile.name)
       data.append('stockQuantity', this.stockQuantity)
 
-      const result = await this.$axios.$post(
-        'http://localhost:5000/api/products',
+      const result = await this.$axios.$put(
+        `http://localhost:5000/api/products/${this.$route.params.id}`,
         data
       )
       console.log(result)

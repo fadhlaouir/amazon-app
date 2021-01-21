@@ -2,8 +2,8 @@ const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-var cors = require("cors");
 const dotenv = require("dotenv");
+var cors = require("cors");
 
 dotenv.config();
 
@@ -13,7 +13,11 @@ const app = express();
 app.use(cors());
 
 mongoose.connect(
-    process.env.DATABASE, { useNewUrlParser: true, useUnifiedTopology: true },
+    process.env.DATABASE, {
+        useCreateIndex: true,
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    },
     (err) => {
         if (err) {
             console.log(err);
@@ -23,10 +27,12 @@ mongoose.connect(
     }
 );
 
-// Middlewares
+// Middleware
 app.use(morgan("dev"));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 
 // Require APIs
 const productRoutes = require("./routes/product");

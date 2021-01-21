@@ -1,15 +1,19 @@
 const router = require('express').Router();
 const Product = require('../models/product');
-
-const upload = require('../middlewares/upload-photo');
+const cloudinary = require('../middlewares/cloudinary');
+const upload = require('../middlewares/multer');
 
 // POST request - create a new product
 router.post('/products', upload.single("photo"), async(req, res) => {
     try {
+        const resultPhoto = await cloudinary.uploader.upload(req.file.path);
+        console.log(resultPhoto);
+
         let product = new Product();
+
         product.title = req.body.title;
         product.description = req.body.description;
-        product.photo = req.file.location;
+        product.photo = resultPhoto.secure_url;
         product.price = req.body.price;
         product.stockQuantity = req.body.stockQuantity;
 
@@ -66,12 +70,14 @@ router.get("/products/:id", async(req, res) => {
 // PUT request - Update a single product
 router.put("/products/:id", upload.single("photo"), async(req, res) => {
     try {
+        const resultPhoto = await cloudinary.uploader.upload(req.file.path);
+
         let product = await Product.findOneAndUpdate({ _id: req.params.id }, {
             $set: {
                 title: req.body.title,
                 price: req.body.price,
                 category: req.body.categoryID,
-                photo: req.file.location,
+                photo: resultPhoto.secure_url,
                 description: req.body.description,
                 owner: req.body.ownerID
             }

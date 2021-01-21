@@ -9,9 +9,16 @@
           </h1>
           <div class="a-spacing-large" />
           <!-- Button -->
-          <a href="#" class="a-button-buy-again">Add a new product</a>
-          <a href="#" class="a-button-history margin-right-10">Add a new category</a>
-          <a href="#" class="a-button-history margin-right-10">Add a new owner</a>
+          <nuxt-link to="/products" class="a-button-buy-again">
+            Add a new product
+          </nuxt-link>
+          <nuxt-link to="/category" class="a-button-history margin-right-10">
+            Add a new category
+          </nuxt-link>
+          <nuxt-link to="/owner" class="a-button-history margin-right-10">
+            Add a new owner
+          </nuxt-link>
+
           <!-- Listing page -->
         </div>
       </div>

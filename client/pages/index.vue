@@ -13,7 +13,7 @@
 
           <div class="mainResults">
             <ul class="s-result-list">
-              <li class="s-result-item celwidget">
+              <li v-for="product in products" :key="product._id" class="s-result-item celwidget">
                 <div class="s-item-container">
                   <!-- Best seller -->
                   <div class="a-spacing-micro">
@@ -27,7 +27,7 @@
                       <!-- Image  -->
                       <div class="col-sm-3 text-center">
                         <a href="#">
-                          <img src="/img/raed.jpg" style="width:150px" class="img-fluid">
+                          <img :src="product.photo" style="width:150px" class="img-fluid">
                         </a>
                       </div>
 
@@ -36,7 +36,7 @@
                           <!-- Title and Date -->
                           <a href="#" class="a-link-normal">
                             <h2 class="a-size-medium">
-                              Title and Date
+                              {{ product.title }}
                               <span class="a-letter-space" />
                               <span class="a-letter-space" />
                               <span class="a-size-small a-color-secondary">Jan 21,2021</span>
@@ -48,7 +48,7 @@
                         <div class="a-row a-spacing-small">
                           <span class="a-size-small a-color-secondary">by</span>
                           <span class="a-size-small a-color-secondary">
-                            <a class="a-link-normal a-text-normal" href="#">Raed Fadhlaoui</a>
+                            <a class="a-link-normal a-text-normal" href="#">{{ product.owner.name }}</a>
                           </span>
                         </div>
 
@@ -69,11 +69,11 @@
                         <!-- Price -->
                         <div class="a-row a-spacing-none">
                           <a href="#" class="a-link-normal a-text-normal">
-                            <span class="a-offscreen">TND 99</span>
+                            <span class="a-offscreen">TND {{ product.price }}</span>
                             <span class="a-color-base sx-zero-spacing">
                               <span class="sx-price sx-price-large">
                                 <sup class="sx-price-currency">TND</sup>
-                                <sup class="sx-price-whole">99</sup>
+                                <sup class="sx-price-whole">{{ product.price }}</sup>
                                 <sup class="sx-price-fractional">00</sup>
                               </span>
                             </span>
@@ -119,10 +119,20 @@ import FeaturedProduct from '~/components/FeaturedProduct'
 export default {
   components: {
     FeaturedProduct
+  },
+  async asyncData ({ $axios }) {
+    try {
+      const response = await $axios.$get('/api/products')
+      console.log('response', response)
+      return {
+        products: response.products
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 </script>
 
 <style>
-
 </style>

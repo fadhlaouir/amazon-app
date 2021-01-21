@@ -1,16 +1,36 @@
+/* eslint-disable */
+const URL = 'http://localhost:5000'
+
 export default {
     // Global page headers: https://go.nuxtjs.dev/config-head
     head: {
         title: 'client',
-        meta: [
-            { charset: 'utf-8' },
-            { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-            { hid: 'description', name: 'description', content: '' }
+        meta: [{
+                charset: 'utf-8'
+            },
+            {
+                name: 'viewport',
+                content: 'width=device-width, initial-scale=1'
+            },
+            {
+                hid: 'description',
+                name: 'description',
+                content: ''
+            }
         ],
-        link: [
-            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-            { rel: 'stylesheet', href: '/css/font-awesome/css/all.css' },
-            { rel: 'stylesheet', href: '/css/default.css' }
+        link: [{
+                rel: 'icon',
+                type: 'image/x-icon',
+                href: '/favicon.ico'
+            },
+            {
+                rel: 'stylesheet',
+                href: '/css/font-awesome/css/all.css'
+            },
+            {
+                rel: 'stylesheet',
+                href: '/css/default.css'
+            }
         ]
     },
 
@@ -40,7 +60,10 @@ export default {
     ],
 
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
-    axios: {},
+    axios: {
+        proxy: true,
+        baseURL: URL
+    },
 
     // PWA module configuration: https://go.nuxtjs.dev/pwa
     pwa: {

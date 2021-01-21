@@ -36,7 +36,9 @@ router.post('/products', upload.single("photo"), async(req, res) => {
 // GET request - get all products
 router.get("/products", async(req, res) => {
     try {
-        let products = await Product.find();
+        let products = await Product.find().populate('owner category').exec();
+        // populate('owner category').exec() => to extract all information 
+        // for owner and category --- from ID to an object
         res.json({
             success: true,
             products: products

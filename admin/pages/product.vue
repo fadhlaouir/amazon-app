@@ -15,7 +15,7 @@
               <!-- category DropDown -->
               <div class="a-spacing-top-medium">
                 <label>Category</label>
-                <select class="a-select-option" v-model="categoryID" >
+                <select v-model="categoryID" class="a-select-option">
                   <option
                     v-for="category in categories"
                     :key="category._id"
@@ -28,7 +28,7 @@
               <!-- Owner DropDown -->
               <div class="a-spacing-top-medium">
                 <label>Owner</label>
-                <select class="a-select-option" v-model="ownerID" >
+                <select v-model="ownerID" class="a-select-option">
                   <option
                     v-for="owner in owners"
                     :key="owner._id"
@@ -41,25 +41,40 @@
               <!-- Title input -->
               <div class="a-spacing-top-medium">
                 <label style="margin-bottom:0px;">Title</label>
-                <input  type="text" class="a-input-text" style="width:100%" v-model="title">
+                <input
+                  v-model="title"
+                  type="text"
+                  class="a-input-text"
+                  style="width:100%"
+                >
               </div>
               <!-- Price input -->
               <div class="a-spacing-top-medium">
                 <label style="margin-bottom:0px;">Price</label>
-                <input type="number" class="a-input-text" style="width:100%" v-model="price" >
+                <input
+                  v-model="price"
+                  type="number"
+                  class="a-input-text"
+                  style="width:100%"
+                >
               </div>
               <!-- Stock Quantity input -->
               <div class="a-spacing-top-medium">
                 <label style="margin-bottom:0px;">Stock Quantity</label>
-                <input  type="number" class="a-input-text" style="width:100%" v-model="stockQuantity">
+                <input
+                  v-model="stockQuantity"
+                  type="number"
+                  class="a-input-text"
+                  style="width:100%"
+                >
               </div>
               <!-- Description textarea -->
               <div class="a-spacing-top-medium">
                 <label style="margin-bottom:0px;">Description</label>
                 <textarea
+                  v-model="description"
                   placeholder="Provide details such as a product description"
                   style="width:100%"
-                  v-model="description"
                 />
               </div>
               <!-- Photo file -->
@@ -78,7 +93,10 @@
               <div class="a-spacing-top-large">
                 <span class="a-button-register">
                   <span class="a-button-inner">
-                    <span class="a-button-text" @click="onAddProduct">Add product</span>
+                    <span
+                      class="a-button-text"
+                      @click="onAddProduct"
+                    >Add product</span>
                   </span>
                 </span>
               </div>

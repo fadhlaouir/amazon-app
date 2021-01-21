@@ -1,13 +1,13 @@
 <template>
   <div>
     <header class="nav-opt-sprite nav-locate-us nav-lang-en nav-ssl nav-unrec">
-      <div class="container-fliud dekstop-nav">
+      <div class="container-fluid dekstop-nav">
         <div class="row">
           <!-- Logo -->
           <div class="col-sm-2">
             <div class="logo-area">
               <a href="#">
-                <img class="img-fliud" alt="Logo" src="/img/logo.png">
+                <img class="img-fluid" alt="Logo" src="/img/logo.png">
               </a>
             </div>
           </div>

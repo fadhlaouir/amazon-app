@@ -15,7 +15,7 @@
               <!-- category DropDown -->
               <div class="a-spacing-top-medium">
                 <label>Category</label>
-                <select v-model="categoryID" class="a-select-option">
+                <select class="a-select-option" v-model="categoryID" >
                   <option
                     v-for="category in categories"
                     :key="category._id"
@@ -28,7 +28,7 @@
               <!-- Owner DropDown -->
               <div class="a-spacing-top-medium">
                 <label>Owner</label>
-                <select v-model="ownerID" class="a-select-option">
+                <select class="a-select-option" v-model="ownerID" >
                   <option
                     v-for="owner in owners"
                     :key="owner._id"
@@ -41,25 +41,25 @@
               <!-- Title input -->
               <div class="a-spacing-top-medium">
                 <label style="margin-bottom:0px;">Title</label>
-                <input v-model="title" type="text" class="a-input-text" style="width:100%">
+                <input  type="text" class="a-input-text" style="width:100%" v-model="title">
               </div>
               <!-- Price input -->
               <div class="a-spacing-top-medium">
                 <label style="margin-bottom:0px;">Price</label>
-                <input v-model="price" type="number" class="a-input-text" style="width:100%">
+                <input type="number" class="a-input-text" style="width:100%" v-model="price" >
               </div>
               <!-- Stock Quantity input -->
               <div class="a-spacing-top-medium">
                 <label style="margin-bottom:0px;">Stock Quantity</label>
-                <input v-model="stockQuantity" type="number" class="a-input-text" style="width:100%">
+                <input  type="number" class="a-input-text" style="width:100%" v-model="stockQuantity">
               </div>
               <!-- Description textarea -->
               <div class="a-spacing-top-medium">
                 <label style="margin-bottom:0px;">Description</label>
                 <textarea
-                  v-model="description"
                   placeholder="Provide details such as a product description"
                   style="width:100%"
+                  v-model="description"
                 />
               </div>
               <!-- Photo file -->
@@ -138,6 +138,7 @@ export default {
   methods: {
     onFileSelected (event) {
       this.selectedFile = event.target.files[0]
+      console.log(' this.selectedFile', this.selectedFile)
       this.fileName = event.target.files[0].name
     },
     async onAddProduct () {
@@ -147,7 +148,7 @@ export default {
       data.append('description', this.description)
       data.append('ownerID', this.ownerID)
       data.append('categoryID', this.categoryID)
-      data.append('photo', this.photo)
+      data.append('photo', this.selectedFile)
       data.append('selectedFile', this.selectedFile.name)
       data.append('stockQuantity', this.stockQuantity)
 

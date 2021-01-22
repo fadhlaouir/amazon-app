@@ -27,7 +27,7 @@
     <div class="container-fluid">
       <div class="dp-container">
         <div class="row">
-          <!-- Product Image and Author's section -->
+          <!-- First 3 grid - Product Image and Author's section -->
           <div class="col-lg-3 col-md-3 col-sm-4">
             <div class="leftCol">
               <!-- Image -->
@@ -75,7 +75,7 @@
               </div>
             </div>
           </div>
-          <!-- Description -->
+          <!-- Middle 6 Grid - Description -->
           <div class="col-lg-6 col-md-6 col-sm-8">
             <div class="centerCol">
               <!-- Product Title -->
@@ -198,6 +198,129 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+          <!-- Last 3 grid Buying section -->
+          <div class="col-lg-3 col-md-3 col-sm-6">
+            <div class="combinedBuyBox">
+              <div class="buyBox">
+                <div class="a-section">
+                  <div class="clearfix">
+                    <div class="float-left">
+                      <form>
+                        <input id="test1" type="radio" name="radio-group checked">
+                        <label for="test1"> Buy Now</label>
+                      </form>
+                    </div>
+                    <!-- Product Price -->
+                    <div class="float-right">
+                      <span class="a-size-medium a-color-price offer-price a-text-normal">
+                        39 TND
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="a-section a-spacing-none">
+                  <div class="row">
+                    <div class="col-sm-5 col-5">
+                      <select>
+                        <option value="1">
+                          <!-- &nbsp; non-breaking space -->
+                          Qty: &nbsp; 1
+                        </option>
+                        <option value="2">
+                          Qty: &nbsp; 2
+                        </option>
+                        <option value="3">
+                          Qty: &nbsp; 3
+                        </option>
+                        <option value="4">
+                          Qty: &nbsp; 4
+                        </option>
+                        <option value="5">
+                          Qty: &nbsp; 5
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="a-section a-spacing-small a-spacing-top-micro">
+                  <div class="row">
+                    <span class="a-color-base buyboxShippingLabel" />
+                  </div>
+                </div>
+                <div class="a-section a-spacing-small">
+                  <div class="a-section a-spacing-none">
+                    <span class="a-size-medium a-color-success">
+                      In Stock
+                    </span>
+                  </div>
+                  <div class="a-section a-spacing-mini">
+                    Ships from and sold by Amazon.com
+                  </div>
+                </div>
+                <div class="a-section">
+                  <div class="a-button-stack">
+                    <span class="a-spacing-small a-button-primary a-button-icon">
+                      <span class="a-button-inner">
+                        <i class="a-icon a-icon-cart" />
+                        <input type="submit" name="submit.add-to-cart" class="a-button-input">
+                        <span class="a-button-text">Add to Cart</span>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="a-button-stack">
+                    <span class="a-spacing-small a-button-primary a-button-icon">
+                      <span class="a-button-inner">
+                        <i class="a-icon a-icon-buynow" />
+                        <input type="submit" name="submit.add-to-cart" class="a-button-input">
+                        <span class="a-button-text">Buy Now</span>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+                <div class="a-row">
+                  <div class="a-spacing-top-small">
+                    <div class="a-section a-spacing-none">
+                      <div class="a-section a-spacing-none a-spacing-top-mini">
+                        This item shipts to
+                        <b>All Tunisia</b>
+                        <b>Get it by Monday, Jan 22</b>
+                        Choose this date at checkout
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <span class="a-declarative">
+                  <a href="#" class="a-link-normal">
+                    <div class="a-row a-spacing-mini">
+                      <i class="fal fa-map-market-alt" />
+                      <span class="a-size-small">
+                        Deliver to Kef
+                      </span>
+                    </div>
+                  </a>
+                </span>
+                <br>
+                <hr>
+                <div class="a-section">
+                  <div class="clearfix">
+                    <div class="float-left">
+                      <form>
+                        <input id="test2" type="radio" name="radio-group">
+                        <label for="test2">Buy Now</label>
+                      </form>
+                    </div>
+                    <div class="float-right">
+                      <span class="a-color-base offer-price a-text-normal">39 TND</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="kcpAppBaseBox text-center">
+              <img src="/img/readyondevice.png" alt="Ready On Device" class="img-fluid">
             </div>
           </div>
         </div>

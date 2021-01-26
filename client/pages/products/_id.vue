@@ -8,7 +8,7 @@
           <!-- Category -->
           <li>
             <span class="a-list-item">
-              <a class="a-link-normal a-color-tertiary" href="#">Category</a>
+              <a class="a-link-normal a-color-tertiary" href="#">{{ product.category.type }}</a>
             </span>
           </li>
           <li>
@@ -17,7 +17,7 @@
           <!-- Product Title -->
           <li>
             <span class="a-list-item">
-              <a class="a-link-normal a-color-tertiary" href="#">Product Title</a>
+              <a class="a-link-normal a-color-tertiary" href="#">{{ product.title }}</a>
             </span>
           </li>
         </ul>
@@ -33,7 +33,7 @@
               <!-- Image -->
               <div class="imgBlock">
                 <div class="eBooksimg">
-                  <img src="/img/raed.jpg" class="img-fluid">
+                  <img :src="product.photo" class="img-fluid">
                 </div>
               </div>
               <!-- Follow Author -->
@@ -48,14 +48,14 @@
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
                       <div class="smallAuthorImageContainer">
                         <a href="#">
-                          <img src="/img/raed.jpg" class="img-fluid">
+                          <img :src="product.owner.photo" class="img-fluid">
                         </a>
                       </div>
                     </div>
                     <!-- Author's  Name -->
                     <div class="col-xl-4 col-lg-3 col-md-3 col-sm-3 col-3">
                       <div class="authorNameCol">
-                        <a href="#">Raed Fadhlaoui</a>
+                        <a href="#">{{ product.owner.name }}</a>
                       </div>
                     </div>
                     <!-- Author's Follow Button -->
@@ -81,7 +81,7 @@
               <!-- Product Title -->
               <div class="titleDiv">
                 <h1 class="productTitle">
-                  <span class="largeTitle"> product Title </span>
+                  <span class="largeTitle"> {{ product.title }} </span>
                   <span class="smallTitle"> small Title </span>
                 </h1>
               </div>
@@ -89,7 +89,7 @@
               <div class="bylineinfo">
                 by
                 <a href="#" class="authorName">
-                  Raed Fadhlaoui
+                  {{ product.owner.name }}
                   <i class="fas fa-chevron-down" style="font-size:8px !important; color:#555 !important;" />
                 </a> (Author)
               </div>
@@ -183,7 +183,7 @@
                 <!-- Description -->
                 <div class="bookDescription">
                   <div class="bookDescriptionInner">
-                    this book is awsome
+                    {{ product.description }}
                   </div>
                 </div>
                 <!-- Product Specification -->
@@ -215,7 +215,7 @@
                     <!-- Product Price -->
                     <div class="float-right">
                       <span class="a-size-medium a-color-price offer-price a-text-normal">
-                        39 TND
+                        {{ product.price }} TND
                       </span>
                     </div>
                   </div>
@@ -283,7 +283,7 @@
                   <div class="a-spacing-top-small">
                     <div class="a-section a-spacing-none">
                       <div class="a-section a-spacing-none a-spacing-top-mini">
-                        This item shipts to
+                        This item ships to
                         <b>All Tunisia</b>
                         <b>Get it by Monday, Jan 22</b>
                         Choose this date at checkout
@@ -313,7 +313,7 @@
                       </form>
                     </div>
                     <div class="float-right">
-                      <span class="a-color-base offer-price a-text-normal">39 TND</span>
+                      <span class="a-color-base offer-price a-text-normal">{{ product.price }} TND</span>
                     </div>
                   </div>
                 </div>
@@ -337,7 +337,7 @@
                   <div class="authorContent">
                     <div class="authorImageSingle">
                       <a href="#">
-                        <img src="/img/raed.jpg" alt="" class="img-fluid">
+                        <img :src="product.owner.photo" alt="author" class="img-fluid">
                       </a>
                     </div>
                     <div class="authorFollow">
@@ -353,7 +353,7 @@
                   <div class="mainContent">
                     <h3>Biography</h3>
                     <div id="authorBio">
-                      My Name is Raed Fadhlaoui
+                      {{ product.owner.about }}
                     </div>
                   </div>
                 </div>
@@ -365,3 +365,19 @@
     </div>
   </main>
 </template>
+
+<script>
+export default {
+  async asyncData ({ $axios, params }) {
+    try {
+      const response = await $axios.$get(`/api/products/${params.id}`)
+      console.log('response', response)
+      return {
+        product: response.product
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+</script>

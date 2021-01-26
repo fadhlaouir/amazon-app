@@ -29,6 +29,18 @@
               />
             </div>
 
+            <!-- Photo file -->
+            <div class="a-spacing-top-medium">
+              <label style="margin-bottom:0px;">Add Photo</label>
+              <div class="a-row a-spacing-top-medium">
+                <label class="choosefile-button">
+                  <i class="fal fa-plus" />
+                  <input type="file" @change="onFileSelected">
+                  <p style="margin-top:-70px">{{ fileName }}</p>
+                </label>
+              </div>
+            </div>
+
             <!-- Button Register -->
             <hr>
             <div class="a-spacing-top-large">
@@ -44,11 +56,14 @@
           </form>
           <br>
           <ul v-for="owner in owners" :key="owner._id" class="list-group-item">
-            <li>
-              <strong>{{ owner.name }} </strong>
-              <br>
-              {{ owner.about }}
-            </li>
+            <img :src="owner.photo && owner.photo" style="width:150px; height:150px; border-radius: 150px;" class="img-fluid">
+            <div class="imgBlock">
+              <li>
+                <strong>{{ owner.name }} </strong>
+                <br>
+                {{ owner.about }}
+              </li>
+            </div>
           </ul>
         </div>
 
@@ -67,6 +82,7 @@ export default {
     try {
       const response = await $axios.$get('http://localhost:5000/api/owners')
       return {
+
         owners: response.owners
       }
     } catch (error) {
@@ -76,15 +92,30 @@ export default {
   data () {
     return {
       name: '',
-      about: ''
+      about: '',
+      fileName: '',
+      selectedFile: null
     }
   },
   methods: {
+    onFileSelected (event) {
+      this.selectedFile = event.target.files[0]
+      console.log(' this.selectedFile', this.selectedFile)
+      this.fileName = event.target.files[0].name
+    },
     async onAddOwner () {
       try {
-        const data = { name: this.name, about: this.about }
+        const data = new FormData()
+        data.append('name', this.name)
+        data.append('about', this.about)
+        data.append('photo', this.selectedFile)
+        data.append('selectedFile', this.selectedFile.name)
+        const xx = { name: this.name, about: this.about, photo: this.selectedFile.name }
+
         await this.$axios.$post('http://localhost:5000/api/owners', data)
-        this.owners.push(data)
+        this.owners.push(xx)
+        console.log('xx', xx)
+        console.log('data', data)
       } catch (error) {
         console.log(error)
       }

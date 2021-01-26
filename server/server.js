@@ -16,7 +16,7 @@ mongoose.connect(
     process.env.DATABASE, {
         useCreateIndex: true,
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
     },
     (err) => {
         if (err) {
@@ -30,18 +30,22 @@ mongoose.connect(
 // Middleware
 app.use(morgan("dev"));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
+app.use(
+    bodyParser.urlencoded({
+        extended: false,
+    })
+);
 
 // Require APIs
 const productRoutes = require("./routes/product");
 const CategorytRoutes = require("./routes/category");
 const OwnertRoutes = require("./routes/owner");
+const userRoutes = require("./routes/auth");
 
 app.use("/api", productRoutes);
 app.use("/api", CategorytRoutes);
 app.use("/api", OwnertRoutes);
+app.use("/api", userRoutes);
 
 app.listen(PORT, (err) => {
     if (err) {

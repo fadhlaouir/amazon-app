@@ -7,7 +7,10 @@ const jwt = require("jsonwebtoken");
 // SignUp Route
 router.post("/auth/signup", async(req, res) => {
     if (!req.body.email || !req.body.password) {
-        res.json({ success: false, message: "Please enter mail or password" });
+        res.json({
+            success: false,
+            message: "Please enter mail or password",
+        });
     } else {
         try {
             let newUser = new User();
@@ -41,6 +44,42 @@ router.get("/auth/user", verifyToken, async(req, res) => {
                 success: true,
                 user: foundUser,
             });
+        }
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+});
+
+// Login Route
+router.post("/auth/login", async(req, res) => {
+    try {
+        let foundUser = await User.findOne({ email: req.body.email }); // to check for email
+        // if email doesn't exist
+        if (!foundUser) {
+            res.status(403).json({
+                success: false,
+                message: "Authentication failed, User not found",
+            });
+        } else {
+            // check password
+            if (foundUser.comparePassword(req.body.password)) {
+                // if password is correct
+                let token = jwt.sign(foundUser.toJSON(), process.env.SECRET, {
+                    expiresIn: 604800, // 1 week
+                });
+                res.json({
+                    success: true,
+                    token: token,
+                });
+            } else {
+                res.status(403).json({
+                    success: false,
+                    message: "Authentication failed, Wrong Password",
+                });
+            }
         }
     } catch (error) {
         res.status(500).json({

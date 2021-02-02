@@ -6,9 +6,9 @@
           <!-- Logo -->
           <div class="col-sm-2">
             <div class="logo-area">
-              <a href="#">
+              <nuxt-link to="/">
                 <img class="img-fluid" alt="Logo" src="/img/logo.png">
-              </a>
+              </nuxt-link>
             </div>
           </div>
           <!-- Search bar -->
@@ -80,7 +80,7 @@
               <!--  Sign in -->
               <!-- if user is already Login -->
               <template v-if="$auth.$state.loggedIn">
-                <nuxt-link id="nav-link-accountList" to="/signup" class="nav-a nav-a-2" tabindex="0">
+                <nuxt-link id="nav-link-accountList" to="/profile" class="nav-a nav-a-2" tabindex="0">
                   <span class="nav-line-1">Hello, </span>
                   <span class="nav-line-2">
                     {{ $auth.$state.user.name }}

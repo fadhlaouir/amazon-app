@@ -80,7 +80,7 @@
               <!--  Sign in -->
               <!-- if user is already Login -->
               <template v-if="$auth.$state.loggedIn">
-                <nuxt-link id="nav-link-accountList" to="/register" class="nav-a nav-a-2" tabindex="0">
+                <nuxt-link id="nav-link-accountList" to="/signup" class="nav-a nav-a-2" tabindex="0">
                   <span class="nav-line-1">Hello, </span>
                   <span class="nav-line-2">
                     {{ $auth.$state.user.name }}
@@ -89,7 +89,7 @@
               </template>
               <!-- else -->
               <template v-else>
-                <nuxt-link id="nav-link-accountList" to="/register" class="nav-a nav-a-2" tabindex="0">
+                <nuxt-link id="nav-link-accountList" to="/signup" class="nav-a nav-a-2" tabindex="0">
                   <span class="nav-line-1">Hello, Sign in</span>
                   <span class="nav-line-2">
                     Account &amp; Lists

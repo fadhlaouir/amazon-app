@@ -3,6 +3,8 @@
         "Categoryt",
         "Ownert",
         "cloudinary",
-        "middlewares"
+        "middlewares",
+        "nuxt",
+        "nuxtjs"
     ]
 }

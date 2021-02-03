@@ -19,12 +19,12 @@
             <!-- Email -->
             <div class="a-spacing-top-medium">
               <label>Email</label>
-              <input v-model="email" :placeholder="$auth.$state.user.email" class="a-input-text" style="width:100%">
+              <input v-model="email" :placeholder="$auth.$state.user.email" type="email" class="a-input-text" style="width:100%">
             </div>
             <!-- Password -->
             <div class="a-spacing-top-medium">
               <label>Password</label>
-              <input v-model="password" class="a-input-text" style="width:100%">
+              <input v-model="password" class="a-input-text" type="password" style="width:100%">
             </div>
 
             <!-- Button Register -->
@@ -52,6 +52,29 @@ export default {
       name: '',
       email: '',
       password: ''
+    }
+  },
+  methods: {
+    async onUpdateProfile () {
+      const data = {
+        name: this.name,
+        email: this.email,
+        password: this.password
+      }
+      try {
+        const response = await this.$axios.$put('/api/auth/user', data)
+        console.log('response', response)
+
+        if (response.success) {
+          this.name = '',
+          this.email = '',
+          this.password = ''
+
+          await this.$auth.fetchUser()
+        }
+      } catch (error) {
+        console.log('error', error)
+      }
     }
   }
 }

@@ -38,13 +38,13 @@ app.use(
 
 // Require APIs
 const productRoutes = require("./routes/product");
-const CategorytRoutes = require("./routes/category");
-const OwnertRoutes = require("./routes/owner");
+const CategoryRoutes = require("./routes/category");
+const OwnerRoutes = require("./routes/owner");
 const userRoutes = require("./routes/auth");
 
 app.use("/api", productRoutes);
-app.use("/api", CategorytRoutes);
-app.use("/api", OwnertRoutes);
+app.use("/api", CategoryRoutes);
+app.use("/api", OwnerRoutes);
 app.use("/api", userRoutes);
 
 app.listen(PORT, (err) => {
